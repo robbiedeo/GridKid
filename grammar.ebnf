@@ -1,0 +1,51 @@
+expression = or
+
+or =    or "||" and
+    | and
+
+and =   and "&&" bitwiseOr
+    | bitwiseOr
+
+bitwiseOr = bitwiseOr "|" bitwiseXor
+    | bitwiseXor
+
+bitwiseXor = bitwiseXor "^" bitwiseAnd
+    | bitwiseAnd
+
+bitwiseAnd = bitwiseAnd "&" equality
+    | equality
+
+equality = equality "==" relational
+    | equality "!=" relational
+    | relational
+
+relational = relational "<" shifts
+    | relational "<=" shifts
+    | relational ">" shifts
+    | relational ">=" shifts
+    | shifts
+
+shifts = shifts ">>" add_sub
+    | shifts "<<" add_sub
+    | add_sub
+
+add_sub = add_sub "+" mult_div
+        | add_sub "-" mult_div
+        | mult_div
+
+mult_div = mult_div "*" exponent
+        | mult_div "/" exponent
+        | mult_div "%" exponent
+        | exponent
+
+exponent = exponent "**" not
+        | not
+
+not = "!" not
+    | atom
+
+
+atom = "("expression")"
+        |INTEGERV
+        | FLOATV
+        | BOOLEANV
